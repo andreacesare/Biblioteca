@@ -51,10 +51,10 @@ public class PrestitoService {
         prestitoRepository.updatePrestito(prestito);
     }
 
-    public List<Libro> libriPrestati(Utente utente){
+    public Set<Libro> libriPrestati(Utente utente){
         PrestitoRepository prestitoRepository = new PrestitoRepository();
         ArrayList<Prestito> prestiti=prestitoRepository.readPrestito();
-        List<Libro> libri=prestiti.stream().filter(p->p.getUtente().getIdu()== utente.getIdu()).map(Prestito::getLibro).distinct().collect(Collectors.toList());
+        Set<Libro> libri=prestiti.stream().filter(p->p.getUtente().getIdu()== utente.getIdu()).map(Prestito::getLibro).collect(Collectors.toSet());
         return libri;
     }
 

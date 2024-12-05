@@ -157,12 +157,10 @@ public class PrestitoController {
         scanner.nextLine();
         Utente utente = new Utente();
         utente.setIdu(id);
-        List<Libro> libri = prestitoService.libriPrestati(utente);
+        Set<Libro> libri = prestitoService.libriPrestati(utente);
         for(Libro libro : libri) {
             System.out.println(libro);
         }
-
-
     }
 
     public void libriNonRientrati(){

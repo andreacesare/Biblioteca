@@ -1,5 +1,7 @@
 package Entity;
 
+import java.util.Objects;
+
 public class Libro {
     private String idl;
     private String titolo;
@@ -15,4 +17,14 @@ public class Libro {
         return idl+" "+titolo+" "+autore;
     }
 
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Se sono lo stesso oggetto, sono uguali
+        if (obj == null || getClass() != obj.getClass()) return false; // Se sono di tipo diverso, non sono uguali
+        Libro libro = (Libro) obj; // Cast dell'oggetto
+        return idl.equals(libro.idl)&&titolo.equals(libro.titolo) && autore.equals(libro.autore); // Confronta i campi principali
+    }
+
+    public int hashCode() {
+        return Objects.hash(idl,titolo, autore); // Restituisce un codice hash combinato per titolo e autore
+    }
 }
