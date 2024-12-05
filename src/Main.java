@@ -104,6 +104,10 @@ public class Main {
                 System.out.println("2. Aggiorna un prestito");
                 System.out.println("3. Visualizza la lista dei prestiti");
                 System.out.println("4. Elimina un prestito");
+                System.out.println("5. Lista dei libri prestati ad un utente specifico");
+                System.out.println("6. Prestiti non rientrati");
+                System.out.println("7. storico prestiti di un utente specifico");
+                System.out.println("8.Prestiti di piu di 15 giorni");
                 System.out.println("9. Exit");
                 System.out.print("inserisci la tua scelta: ");
                 choice2 = scanner.nextInt();
@@ -123,13 +127,16 @@ public class Main {
                         prestitoController.deletePrestito();
                         break;
                     case 5:
-
+                        prestitoController.libriPrestati();
                         break;
                     case 6:
-
+                        prestitoController.libriNonRientrati();
                         break;
                     case 7:
-
+                        prestitoController.storicoLibriUtente();
+                        break;
+                    case 8:
+                        prestitoController.prestitiP15g();
                         break;
                     case 9:
                         System.out.println("Exiting");

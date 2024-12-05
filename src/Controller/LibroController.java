@@ -2,6 +2,7 @@ package Controller;
 
 import Entity.Libro;
 import Service.LibroService;
+import Service.UtenteService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -53,4 +54,6 @@ public class LibroController {
         String autore = scanner.nextLine();
         libroService.updateLibro(id, titolo, autore);
     }
+
+
 }

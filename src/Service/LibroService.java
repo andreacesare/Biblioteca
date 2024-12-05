@@ -1,9 +1,13 @@
 package Service;
-
+import java.util.*;
 import Entity.Libro;
+import Entity.Prestito;
+import Entity.Utente;
 import Repository.LibroRepository;
+import Repository.PrestitoRepository;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class LibroService {
 
@@ -39,4 +43,6 @@ public class LibroService {
         libro.setAutore(autore);
         libroRepository.updateLibro(libro);
     }
+
+
 }

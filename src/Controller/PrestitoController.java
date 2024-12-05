@@ -11,140 +11,188 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PrestitoController {
-    Scanner scanner=new Scanner(System.in);
-    private static final Logger logger=Logger.getLogger(PrestitoController.class.getName());
+    Scanner scanner = new Scanner(System.in);
+    private static final Logger logger = Logger.getLogger(PrestitoController.class.getName());
 
-    public void createPrestito(){
+    public void createPrestito() {
         PrestitoService prestitoService = new PrestitoService();
         LibroController libroController = new LibroController();
         UtenteController utenteController = new UtenteController();
         LibroService libroService = new LibroService();
         UtenteService utenteService = new UtenteService();
-        ArrayList<Libro> libri=libroService.readLibro();
-        ArrayList<Utente> utenti=utenteService.readUtenti();
-        Libro libro=new Libro();
-        Utente utente=new Utente();
+        ArrayList<Libro> libri = libroService.readLibro();
+        ArrayList<Utente> utenti = utenteService.readUtenti();
+        Libro libro = new Libro();
+        Utente utente = new Utente();
         utenteController.readUtente();
         System.out.println("Inserisci id dell'utente che vuole fare il prestito");
-        int idu= scanner.nextInt();
+        int idu = scanner.nextInt();
         scanner.nextLine();
         libroController.readLibro();
         System.out.println("Inserisci l'id del libro da prendere in prestito");
-        String idl= scanner.nextLine();
-        for(int i=0;i<utenti.size();i++){
-            if(utenti.get(i).getIdu()==idu){
-                utente=utenti.get(i);
+        String idl = scanner.nextLine();
+        for (int i = 0; i < utenti.size(); i++) {
+            if (utenti.get(i).getIdu() == idu) {
+                utente = utenti.get(i);
                 break;
             }
         }
-        for(int i=0;i<libri.size();i++){
-            if(libri.get(i).getIdl().equalsIgnoreCase(idl)){
-                libro=libri.get(i);
+        for (int i = 0; i < libri.size(); i++) {
+            if (libri.get(i).getIdl().equalsIgnoreCase(idl)) {
+                libro = libri.get(i);
                 break;
             }
         }
-        LocalDate inizio=null;
+        LocalDate inizio = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        boolean dataValida=false;
-        while(!dataValida){
-            try{
+        boolean dataValida = false;
+        while (!dataValida) {
+            try {
                 System.out.println("Inserisci l'inizio del prestito");
-                inizio=LocalDate.parse(scanner.nextLine(),formatter);
-                dataValida=true;
-            }catch(DateTimeParseException e){
+                inizio = LocalDate.parse(scanner.nextLine(), formatter);
+                dataValida = true;
+            } catch (DateTimeParseException e) {
                 System.out.println("Formato non valido, riprova");
             }
         }
-        prestitoService.createPrestito(inizio,libro,utente);
+        prestitoService.createPrestito(inizio, libro, utente);
 
     }
 
-    public void readPrestito(){
+    public void readPrestito() {
         PrestitoService prestitoService = new PrestitoService();
-        ArrayList<Prestito> prestiti =prestitoService.readPrestito();
+        ArrayList<Prestito> prestiti = prestitoService.readPrestito();
         System.out.println("Ecco la lista dei prestiti");
-        for(Prestito p:prestiti){
+        for (Prestito p : prestiti) {
             System.out.println(p);
         }
 
 
     }
 
-    public void deletePrestito(){
+    public void deletePrestito() {
         PrestitoService prestitoService = new PrestitoService();
         readPrestito();
         System.out.println("Inserisci l'id del prestito da eliminare");
-        int id= scanner.nextInt();
+        int id = scanner.nextInt();
         scanner.nextLine();
         prestitoService.deletePrestito(id);
     }
 
-    public void updatePrestito(){
+    public void updatePrestito() {
         readPrestito();
         System.out.println("Inserisci l'id del prestito da modificare");
-        int id= scanner.nextInt();
+        int id = scanner.nextInt();
         scanner.nextLine();
         PrestitoService prestitoService = new PrestitoService();
         LibroController libroController = new LibroController();
         UtenteController utenteController = new UtenteController();
         LibroService libroService = new LibroService();
         UtenteService utenteService = new UtenteService();
-        ArrayList<Libro> libri=libroService.readLibro();
-        ArrayList<Utente> utenti=utenteService.readUtenti();
-        Libro libro=new Libro();
-        Utente utente=new Utente();
+        ArrayList<Libro> libri = libroService.readLibro();
+        ArrayList<Utente> utenti = utenteService.readUtenti();
+        Libro libro = new Libro();
+        Utente utente = new Utente();
         utenteController.readUtente();
         System.out.println("Inserisci id dell'utente che vuoi modificare");
-        int idu= scanner.nextInt();
+        int idu = scanner.nextInt();
         scanner.nextLine();
         libroController.readLibro();
         System.out.println("Inserisci l'id del libro che vuoi modificare");
-        String idl= scanner.nextLine();
-        for(int i=0;i<utenti.size();i++){
-            if(utenti.get(i).getIdu()==idu){
-                utente=utenti.get(i);
+        String idl = scanner.nextLine();
+        for (int i = 0; i < utenti.size(); i++) {
+            if (utenti.get(i).getIdu() == idu) {
+                utente = utenti.get(i);
                 break;
             }
         }
-        for(int i=0;i<libri.size();i++){
-            if(libri.get(i).getIdl().equalsIgnoreCase(idl)){
-                libro=libri.get(i);
+        for (int i = 0; i < libri.size(); i++) {
+            if (libri.get(i).getIdl().equalsIgnoreCase(idl)) {
+                libro = libri.get(i);
                 break;
             }
         }
-        LocalDate inizio=null;
+        LocalDate inizio = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        boolean dataValida=false;
-        while(!dataValida){
-            try{
+        boolean dataValida = false;
+        while (!dataValida) {
+            try {
                 System.out.println("Inserisci l'inizio del prestito");
-                inizio=LocalDate.parse(scanner.nextLine(),formatter);
-                dataValida=true;
-            }catch(DateTimeParseException e){
+                inizio = LocalDate.parse(scanner.nextLine(), formatter);
+                dataValida = true;
+            } catch (DateTimeParseException e) {
                 System.out.println("Formato non valido, riprova");
             }
         }
-        LocalDate fine=null;
+        LocalDate fine = null;
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        boolean dataValida2=false;
-        while(!dataValida2){
-            try{
+        boolean dataValida2 = false;
+        while (!dataValida2) {
+            try {
                 System.out.println("Inserisci la fine del prestito");
-                fine=LocalDate.parse(scanner.nextLine(),formatter);
-                dataValida2=true;
-            }catch(DateTimeParseException e){
+                fine = LocalDate.parse(scanner.nextLine(), formatter);
+                dataValida2 = true;
+            } catch (DateTimeParseException e) {
                 System.out.println("Formato non valido, riprova");
             }
         }
-        prestitoService.updatePrestito(id,inizio,fine,libro,utente);
+        prestitoService.updatePrestito(id, inizio, fine, libro, utente);
 
 
     }
 
+    public void libriPrestati() {
+        PrestitoService prestitoService = new PrestitoService();
+        UtenteController utenteController = new UtenteController();
+        utenteController.readUtente();
+        System.out.println("Inserisci l'id dell'utente");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Utente utente = new Utente();
+        utente.setIdu(id);
+        List<Libro> libri = prestitoService.libriPrestati(utente);
+        for(Libro libro : libri) {
+            System.out.println(libro);
+        }
 
+
+    }
+
+    public void libriNonRientrati(){
+        PrestitoService prestitoService=new PrestitoService();
+        List<Prestito> lista=prestitoService.libriNonRientrati();
+        for(Prestito p:lista){
+            System.out.println(p);
+        }
+    }
+
+    public void storicoLibriUtente(){
+        PrestitoService prestitoService=new PrestitoService();
+        UtenteController utenteController=new UtenteController();
+        utenteController.readUtente();
+        System.out.println("Inserisci l'id dell'utente");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        Utente utente = new Utente();
+        utente.setIdu(id);
+        List<Prestito> lista=prestitoService.storicoLibriUtente(utente);
+        for(Prestito p:lista){
+            System.out.println(p);
+        }
+    }
+
+    public void prestitiP15g(){
+        PrestitoService prestitoService=new PrestitoService();
+        List<Prestito> lista=prestitoService.prestitiP15g();
+        for(Prestito p:lista){
+            System.out.println(p);
+        }
+    }
 }

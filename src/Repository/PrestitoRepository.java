@@ -104,4 +104,7 @@ public class PrestitoRepository {
             logger.log(Level.SEVERE,"Errore"+e.getMessage(),e);
         }
     }
+
+
+
 }
